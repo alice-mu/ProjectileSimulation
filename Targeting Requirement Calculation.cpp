@@ -164,38 +164,62 @@ bool hitTargetGivenAngle (const float h, const float m, const float theta,
 
 int main() {
 	
-  float d = 60;
-  float h = 70;
-  float b = 40;
-  float t = 70;
-  float w = 30;
-  float m = 0.5;
-  float theta = 77.6;
-  float v = 25.5;
+	cout << "what is the firing height?" << endl;
+	float h;
+	cin >> h;
+	
+	cout << "what is the object mass?" << endl;
+	float m;
+	cin >> m;
+	
+	cout << "what is the horizontal distance to the target?" << endl;
+	float d;
+	cin >> d;
+	
+	cout << "what is the target height?" << endl;
+	float t;
+	cin >> t;
+	
+	cout << "what is the distance to the target building?" << endl;
+	float b;
+	cin >> b;
+	
+	cout << "what is the width of the building?" << endl;
+	float w;
+	cin >> w;
+	
+	cout << "great! now we'll calculate the needed angle given a velocity. what is the initial velocity?" << endl;
+	float v;
+	cin >> v;
+	
+	float theta;
 
-  cout << "Given initial velocity: " << v << endl;
+  	cout << "Given initial velocity: " << v << endl;
   
-  cout << "Target at (" << d << "," << t << ")" << endl;
+  	cout << "Target at (" << d << "," << t << ")" << endl;
   
-  if (hitTargetGivenVelocity (h, v, m, d, t, b, w, theta)) {
-    cout << "required angle: " << theta << endl << endl;
-  }
+  	if (hitTargetGivenVelocity (h, v, m, d, t, b, w, theta)) {
+    		cout << "required angle: " << theta << endl << endl;
+ 	}
   
-  else {
-    cout << "cannot calculate the angle\n\n";  
-  }
+  	else {
+    		cout << "cannot calculate the angle\n\n";  
+  	}
   
-  cout << "Given angle: " << theta << endl;
+   	cout << "and now we'll calculate the needed velocity given an angle. what is the initial angle?" << endl;
+	cin >> theta;
+	
+	cout << "Given angle: " << theta << endl;
   
-  cout << "Target at (" << d << "," << t << ")" << endl;
+	cout << "Target at (" << d << "," << t << ")" << endl;
   
-  if (hitTargetGivenAngle (h, m, theta, d, t, b, w, v)) {
-    cout << "required initial velocity: " << v << endl << endl;
-  }
+	if (hitTargetGivenAngle (h, m, theta, d, t, b, w, v)) {
+		cout << "required initial velocity: " << v << endl << endl;
+	}
   
-  else {
-    cout << "cannot calculate the velocity\n\n";
-  }
+	else {
+		cout << "cannot calculate the velocity\n\n";
+	}
 
-  return 0;
+  	return 0;
 }
