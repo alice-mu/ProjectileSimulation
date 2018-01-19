@@ -1,7 +1,4 @@
-# Discrete-Time-Simulation
-
-Programs that make calculations on user-inputted parameters to solve projectile problems of many variations
-
+# Projectile Simulations
 
 Resistance Simulation uses discrete-time simulation with user-inputted differential element magnitude and drag constant to do a step-by-step simulation of projectile firing under the effect of air resistance.
 
