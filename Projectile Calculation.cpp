@@ -91,21 +91,44 @@ bool projectileDestination(const float h, const float v, const float m,
 
 int main(const int argc, const char* const argv[]) {
 
-  float h = 50;
-  float v = 25;
-  float m = 1;
-  float theta = 64.4;
-  float d = 60;
-  float t = 30;
-  float b = 40;
-  float w = 30;
+	cout << "what is the firing height?" << endl;
+	float h;
+	cin >> h;
 
-  float hitsAtX;
-  float hitsAtY;
+	cout << "what is the initial velocity?" << endl;
+	float v;
+	cin >> v;
+	
+	cout << "what is the initial angle?" << endl;
+	float theta;
+	cin >> theta;
+	
+	cout << "what is the object mass?" << endl;
+	float m;
+	cin >> m;
+	
+	cout << "what is the horizontal distance to the target?" << endl;
+	float d;
+	cin >> d;
+	
+	cout << "what is the target height?" << endl;
+	float t;
+	cin >> t;
+	
+	cout << "what is the distance to the target building?" << endl;
+	float b;
+	cin >> b;
+	
+	cout << "what is the width of the building?" << endl;
+	float w;
+	cin >> w;
 
-  if (projectileDestination(h,v,m,theta,d,t,b,w,hitsAtX,hitsAtY))
-    cout << "Projectile hit at (" << hitsAtX << ", " << hitsAtY << ")" <<endl;
-  else
-    cout << "Unable to calculate where projectile hits." << endl;
-  return 0;
+  	float hitsAtX;
+  	float hitsAtY;
+
+  	if (projectileDestination(h,v,m,theta,d,t,b,w,hitsAtX,hitsAtY))
+    		cout << "Projectile hit at (" << hitsAtX << ", " << hitsAtY << ")" <<endl;
+ 	else
+		cout << "Unable to calculate where projectile hits." << endl;
+ 	return 0;
 }
