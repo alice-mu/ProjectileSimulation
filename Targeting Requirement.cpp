@@ -127,7 +127,8 @@ bool hitTargetGivenAngle (const float h, const float m, const float theta,
 	float time;
 	
 	//loop that increments velocity by 10 until it finds a range the root is in
-	//more effective than starting bisection of range 0 to FLT_MAX (because I'm working under the assumption of real-life values for velocity and distance)
+	//more effective than starting bisection of range 0 to FLT_MAX
+	//(because I'm working under the assumption of real-life values for velocity and distance)
 	do{
 		v += 10;
 		
