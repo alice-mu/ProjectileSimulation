@@ -1,46 +1,57 @@
 #include <stdlib.h>
 #include <math.h>
 #include <iostream>
-
-using namespace std;
-
 #define NaN std::numeric_limits<float>::quiet_NaN() 
 #define isNaN(X) (X != X)
 
-float ylocation (const float angle, const float v);
+using namespace std;
 
+//function to be called to calculate y-location of projectile with a specified time
 float ylocation (const float h, const float vtotal, const float angle, const float t) {
 	
+	//kinematics equation taking into account the effects of gravity on velocity
 	float yloc = h + ((vtotal * sin(angle)) * t) + (0.5 * -9.8 * t * t);
 	
 	return yloc;
 }
 
+//function to be called in main for calculation of required angle (with a given velocity) to hit given target location
+//returns true if able to calculate angle, false if unable (invalid parameters)
 bool hitTargetGivenVelocity (const float h, const float v, const float m,
 							 const float d, const float t, const float b, 
 							 const float w, float& theta) {
-	
+
+	//error-checking for invalid parameters such as negative mass
 	if (h < 0 || v < 0 || m <= 0|| d < 0 || b < 0 || w <= 0 || theta > 270 || theta < -90)
 	  return false;
   
+	//setting up max and min angle for bisection
+	//no need for anything outside of 45 and 90 degrees towards the direction of the target
+	//if maxang was 90 degrees program would be in infinite loop, so subtract 0.01
 	float maxang = (M_PI / 2)-0.01;
 	
 	float minang = M_PI / 4;
 	
 	int counter = 0;
 	
+	//midpoint angle between max angle and min angle
 	float midpoint;
 	
+	//time it takes for projectile to reach required x-location with the min agle and max angle, respectively
 	float time_minang;
 	
 	float time_midpoint;
 	
+	//y-location of projectile with the time_minang and time_maxang, respectively
 	float dest_minang;
 	
 	float dest_midpoint;
 	
 	bool done = false;
 	
+	//do-while loop check y-location of projectile in relation to required target
+	//(negative value is undershooting--projectile below required location, positive is overshooting)
+	//exits when projectile location is within 0.000001 of targetted location
 	do{
 		midpoint = (maxang + minang) /2;
 		
@@ -52,6 +63,7 @@ bool hitTargetGivenVelocity (const float h, const float v, const float m,
 	
 		dest_midpoint = ylocation((h-t), v, midpoint, time_midpoint);
 
+		//checking if max and min of our angle range is the correct answer
 		if (fabs(dest_midpoint) < 0.000001){
 			
 			theta = midpoint;
@@ -66,52 +78,71 @@ bool hitTargetGivenVelocity (const float h, const float v, const float m,
 			done = true;
 		}
 		
+		//checking for a root between the first half of the bisection interval
+		//if product is negative it tells us the one bound is overshooting and one is undershooting, correct answer is between
+		//resetting max or min angle depending on root
 		else if (dest_minang * dest_midpoint < 0)
 			maxang = midpoint;
 
 		else
 			minang = midpoint;
-		
+	
+	//stop when achieved precision
 	} while ((maxang - minang) > 0.000001 && !done);
-		
+	
 	if (!done)
 		theta = midpoint;
 	
+	//return value from radians to degrees
 	theta = 180 * theta / M_PI;
 	
 	return true;
 }
 
+//function to be called in main for calculation of required velocity (with a given angle) to hit given target location
+//returns true if able to calculate angle, false if unable (invalid parameters)
 bool hitTargetGivenAngle (const float h, const float m, const float theta, 
 							const float d, const float t, const float b, 
 							const float w, float& v) {
 	
+	//error-checking
 	if (h < 0 || v < 0 || m <= 0|| d < 0 || b < 0 || w <= 0 || theta > 270 || theta < -90)
 	  return false;
   
+	//infinite loop if 0
 	v = 0.01;
 	
+	//converting given angle from degrees to radians
 	float angle = theta * M_PI / 180;
 	
 	float desty;
 	
 	float time;
 	
+	//loop that increments velocity by 10 until it finds a range the root is in
+	//more effective than starting bisection of range 0 to FLT_MAX
 	do{
 		v += 10;
 		
+		//time it takes for projectile to reach required x-position
 		time = d / (v * cos(angle));
 		
+		//y-location of projectile using the calculated time
 		desty = ylocation((h - t), v, angle, time);
 		
 	} while (desty < 0);
 	
+	//setting up bisection range
+	//since vmax is the first known value to overshoot, vmax-10 is the last known value to undershoot => vmin=vmax-10
 	float vmin = v - 10;
 	
 	float vmax = v;
 	
+	//midpoint velocity between vmin and vmax
 	float midpoint;
 
+	//time if takes for min velocity and midpoint velocity to reach x-position and their respective y-positions
+	//no need to check for max velocity because if the root isn't between vmin and vmidpoint, then its between vmidpoint and vmax
 	float time_vmin;
 	
 	float time_midpoint;
@@ -122,6 +153,8 @@ bool hitTargetGivenAngle (const float h, const float m, const float theta,
 	
 	bool done = false;
 
+	//do-while loop to do bisection on vmax and vmin bounds
+	//exits when projectile location is within 0.00001 of targetted location
 	do{
 		midpoint = (vmin + vmax) / 2;
 		
@@ -164,6 +197,8 @@ bool hitTargetGivenAngle (const float h, const float m, const float theta,
 
 int main() {
 	
+	//prompting user-inputted parameters for calculations
+	
 	cout << "what is the firing height?" << endl;
 	float h;
 	cin >> h;
@@ -198,6 +233,7 @@ int main() {
   
   	cout << "Target at (" << d << "," << t << ")" << endl;
   
+	//calling function to calculate required angle with the user-inputted parameters
   	if (hitTargetGivenVelocity (h, v, m, d, t, b, w, theta)) {
     		cout << "required angle: " << theta << endl << endl;
  	}
@@ -213,6 +249,7 @@ int main() {
   
 	cout << "Target at (" << d << "," << t << ")" << endl;
   
+	//calling function to calculate required velocity with the user-inputted parameters
 	if (hitTargetGivenAngle (h, m, theta, d, t, b, w, v)) {
 		cout << "required initial velocity: " << v << endl << endl;
 	}
