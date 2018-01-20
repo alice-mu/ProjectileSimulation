@@ -62,7 +62,7 @@ bool hitTargetGivenAngle (const float h, const float m, const float theta,
 	//true if precision is acheived through bisection
 	bool done1 = false;
 	
-	//PART ONE: FINDING INTERVAL FOR BISECTION
+	//FINDING INTERVAL FOR BISECTION
 	//do-while loop that increments vel by 10 until the projectile overshoots the target
 	//then the (max of the bisection interval) = vel; (the min) = vel-10
 	
@@ -121,7 +121,7 @@ bool hitTargetGivenAngle (const float h, const float m, const float theta,
 	float vmax = vel;
 	float vmin = vel-10;
 	
-	//using bisection on the interval found last do-while loop
+	//BISECTION ON THE FOUND INTERVAL
 	do{
 		v = (vmin + vmax) / 2;
 		
@@ -156,7 +156,7 @@ bool hitTargetGivenAngle (const float h, const float m, const float theta,
 	} while (vmax - vmin > 0.0001);
 	
 	
-	//re-testing final answer
+	//RE-TESTING FINAL ANSWER
 	//must check if projectile would hit the corner of the target building before it reaches target
 	float vtest = v;
 	
