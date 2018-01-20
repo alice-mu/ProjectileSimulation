@@ -141,7 +141,7 @@ bool hitTargetGivenAngle (const float h, const float m, const float theta,
 	} while (desty < 0);
 	
 	//setting up bisection range
-	//since vmax is the first known value to overshoot, vmax-10 is the last known value to undershoot => vmin=vmax-10
+	//since v is the first known value to overshoot, v-10 is the last known value to undershoot => vmin=v-10
 	float vmin = v - 10;
 	
 	float vmax = v;
