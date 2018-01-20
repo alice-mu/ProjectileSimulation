@@ -2,6 +2,4 @@
 
 Resistance Simulation uses discrete-time simulation with user-inputted differential element magnitude and drag constant to do a step-by-step simulation of projectile firing under the effect of air resistance.
 
-Targeting Requirement uses the Intermediate Value Theorem in calculus before using bisection to calculate the required velocity (given an angle) and the required angle (given a velocity) needed to hit a specified target.
-
-Projectile Calculation uses recursive functions to algebraically calculate the destination of a projectile.
+Targeting Requirement.cpp uses the intermediate value theorum and bisection along with recursive functions, user-inputted command-line parameters, and error checking to calculate the required angle (given a velocity) and required velocity (given an angle) for a projectile of mass m to hit location (d,t) from (0, h) (with other parameters taken into account such as target building width and height)
