@@ -1,6 +1,7 @@
-//Targeting Requirement.cpp uses the intermediate value theorum and bisection along with recursive functions, 
-//user-inputted command-line parameters, and error checking to calculate the required angle (given a velocity)
-//and required velocity (given an angle) for a projectile of mass m to hit location (d,t) from (0, h)
+//Calculates the required angle (given velocity) and required velocity (given angle) for a projectile to hit given target
+
+//Uses the intermediate value theorem and bisection along with recursive functions, user-inputted command-line parameters,
+//and error checking to calculate the required angle and velocity for a projectile of mass m to hit location (d,t) from (0, h)
 //(with other parameters taken into account such as target building width and height)
 
 
